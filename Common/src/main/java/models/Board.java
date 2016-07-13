@@ -1,19 +1,14 @@
-package model;
-
-import models.BoardElementState;
-import models.Ship;
+package models;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Set;
 
 
-public class Board {
-
+public class Board implements Serializable {
 
     private Cell[][] cells = new Cell[10][10];
     public Set<Ship> ships;
-
-    // TODO setter or constructor???? How to set dependency on Set of Ships in board
 
     public void init(Set<Ship> ships) {
         for (int i = 0; i < 10; i++) {

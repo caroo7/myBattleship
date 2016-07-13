@@ -1,13 +1,12 @@
 package services;
 
-
-import model.Board;
+import models.Board;
 import models.BoardElementState;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.awt.*;
 
-public class ShootServiceImpl implements ShootService{
+public class ShootServiceImpl implements ShootService {
 
     @Autowired
     Board board;

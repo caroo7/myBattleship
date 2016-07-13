@@ -1,7 +1,6 @@
 package services;
 
-
-import model.Board;
+import models.Board;
 import models.Player;
 import models.Ship;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,11 @@ public class GameInitializerImpl implements GameInitializer {
 
     private static int playerID;
 
+    @Autowired
+    private Board board;
+
     @Override
-    public Player initGame(Set<Ship> ships) {
-        Board board = new Board();
+    public void initGame(Set<Ship> ships) {
         board.init(ships);
-        return null;
     }
 }

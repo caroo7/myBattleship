@@ -43,7 +43,7 @@ public class BoardPanel extends JPanel {
         repaint();
     }
 
-    private void addListener(final BoardType boardType) {
+    private void addListener(BoardType boardType) {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent mouseEvent) {

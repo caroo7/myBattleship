@@ -1,11 +1,12 @@
 package services;
 
 
+import models.Board;
 import models.Player;
 import models.Ship;
 
 import java.util.Set;
 
 public interface GameInitializer {
-    Player initGame(Set<Ship> ships);
+    void initGame(Set<Ship> ships);
 }

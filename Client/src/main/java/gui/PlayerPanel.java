@@ -1,9 +1,6 @@
 package gui;
 
-import models.BoardElementState;
-import models.BoardType;
-import models.Player;
-import models.Ship;
+import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import services.GameInitializer;
 import services.ShipGenerator;
@@ -20,20 +17,21 @@ public class PlayerPanel {
     @Autowired
     GameInitializer gameInitializer;
 
-    private BoardPanel board;
+    @Autowired
+    BoardPanel boardPanel;
+
     private Set<Ship> ships;
+
     private Player playerID;
 
     public JPanel createPlayerPanel(BoardType boardType) {
         JPanel playerPanel = new JPanel(new BorderLayout());
-        board = new BoardPanel(boardType);
 
-        JLabel title = new JLabel(boardType.toString() + " board");
+        JLabel title = new JLabel(boardType.toString() + " boardPanel");
         title.setFont(new Font("Dialog", Font.BOLD, 15));
 
         playerPanel.add(title, BorderLayout.NORTH);
-
-        playerPanel.add(board, BorderLayout.CENTER);
+        playerPanel.add(boardPanel, BorderLayout.CENTER);
 
         if (boardType.equals(BoardType.Yours)) playerPanel.add(userButtonsPanel(), BorderLayout.SOUTH);
         else playerPanel.add(rivalButtonsPanel(), BorderLayout.SOUTH);
@@ -50,14 +48,14 @@ public class PlayerPanel {
 
         //TODO cut out this part of game logic
         startButton.addActionListener(e -> {
-            playerID = gameInitializer.initGame(ships);
+            gameInitializer.initGame(ships);
         });
         generateShipsButton.addActionListener(e -> {
-            board.setEmptyBoard();
+            boardPanel.setEmptyBoard();
             startButton.setEnabled(true);
             try {
                 ships = shipGenerator.generateShips();
-                ships.stream().forEach(ship -> board.setUserBoardState(ship.getCoordinates(), BoardElementState.SHIP));
+                ships.stream().forEach(ship -> boardPanel.setUserBoardState(ship.getCoordinates(), BoardElementState.SHIP));
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null, "Cannot establish connection with server", "Connection error", JOptionPane.ERROR_MESSAGE);
             }
